@@ -1,0 +1,78 @@
+<!-- ירושה-->
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock head %}
+
+{% block body %}
+<div class="header-buttons">
+
+    <!--אם יש משתמש מחובר -->
+    {% if user %}
+    <!-- ונמצאים בדף הפרופיל-->
+        {% if current_page=='profile' %}
+        <!-- כפתור הוספת רכישה פותח את הטופס-->
+            <a href="#" id="show-form-btn" class="add-btn" onclick="toggleForm()">
+                <i class="fas fa-plus-circle" ></i> הוספת רכישה
+            </a>
+        {% endif %}
+        <!-- אם לא בעמוד פרופיל - הכפתור לא מוצג-->
+    {% else %}
+    <!--אם אין משתמש מחובר, הכפתור מוביל לדף לוגין-->
+    <a href="{{ url_for('login') }}" id="show-form-btn" class="add-btn" >
+        <i class="fas fa-plus-circle" ></i> הוספת רכישה
+    </a>
+    {% endif %}
+    <!--CSV הורדת קובץ -->
+    <a href="{{ url_for('export_csv') }}" class="btn btn-primary">
+        <i class="fas fa-download"></i> הורד קובץ CSV
+    </a>
+    <a href="{{ url_for('create_categories_plt') }}" class="diagram-btn">
+        <i class="fas fa-chart-pie"></i> התפלגות לפי קטגוריות
+    </a>
+    <a href="{{ url_for('create_month_diagram') }}" class="diagram-btn">
+        <i class="fas fa-calendar-alt"></i> התפלגות לפי חודשים
+    </a>
+    <a href="{{ url_for('improve') }}" class="diagram-btn">
+        <i class="fas fa-arrow-trend-up"></i>  ייעול קניות
+    </a>
+</div>
+
+<main>
+    <div class="main-content">
+        <div class="profile-container">
+          <div class="profile-header">
+    {% block content %}
+    <!--פה יהיה תוכן בדפים היורשים-->
+    {% endblock %}
+</div>
+</div>
+</div>
+</main>
+
+{% endblock body %}
+
+{% block script %}
+<script>
+    //פונקצייה שמוםעלת בלחיצה על כפתור הוספת רכישה ופותחת טופס
+    function toggleForm() {
+        
+        const form = document.getElementById("purchase-form");
+        const isHidden = form.style.display === "none";
+        
+        form.style.display = isHidden ? "block" : "none";
+
+        if (isHidden) {
+            // מוודא שהגלילה תגיע עד סוף הטופס
+            setTimeout(() => {
+                form.scrollIntoView({ behavior: "smooth", block: "end" });
+            }, 100);
+        }
+    }
+
+    {% block in_skript %}{% endblock in_skript %}
+</script>
+
+{% endblock script %}

@@ -1,0 +1,65 @@
+{% extends "base_profile.html" %}
+
+{% block title %} ייעול הקניות שלך {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="table-container">
+      <!--טבלה שמציגה את המוצרים שבחנות השניה עלו פחות-->
+      <div class="table-header">!יכולת לשלם פחות</div>
+      <table class="purchases-table">
+        <thead>
+          <tr>
+            <th>שם</th>
+            <th>מחיר ששולם</th>
+            <th>מחיר בחנות</th>
+            <th>קטגוריה</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for buy, product in cheap_products %}
+          <tr>
+            <td>{{ buy.name }}</td>
+            <td>{{ buy.price }} ₪</td>
+            <td>{{ product[1] }} </td>
+            <td>{{ buy.category }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  
+    <!--טבלה שמציגה את המוצרים שבחנות השניה עלו פחות-->
+    <div class="table-container">
+      <div class="table-header">!יצאת בזול</div>
+      <table class="purchases-table">
+        <thead>
+          <tr>
+            <th>שם</th>
+            <th>מחיר ששולם</th>
+            <th>מחיר בחנות</th>
+            <th>קטגוריה</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for buy, product in expensive_products %}
+          <tr>
+            <td>{{ buy.name }}</td>
+            <td>{{ buy.price }} ₪</td>
+            <td>{{ product[1] }} </td>
+            <td>{{ buy.category }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!--'כפתור 'חזרה לפרופיל-->
+    <div class="back-button-container">
+        <button class="back" onclick="location.href='{{ url_for('profile') }}'">
+            <i class="fas fa-arrow-right"></i> חזרה לפרופיל
+        </button>
+        </div>
+  </div>
+  
+{% endblock content %}

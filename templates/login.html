@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>התחברות</title>
+    <link rel="stylesheet" href="static/css/login.css">
+</head>
+<body>
+    <div class="login-container">
+      <!--Google טופס התחברות ללא -->
+      <form method="post" action="{{ url_for('login') }}" class="login-form">
+        <input type="text" name="name" placeholder="שם מלא" required>
+        <input type="email" name="email" placeholder="אימייל" required>
+        <button type="submit">התחבר</button>
+      </form>
+
+      <hr>
+      <!--!רק כפתור זה עובד-->
+      <div class="social-buttons">
+        <!-- כפתור גוגל -->
+        <a href="{{ url_for('login_google') }}" class="btn google">
+          <img src="https://developers.google.com/identity/images/g-logo.png" class="icon"> התחברות עם Google
+        </a>
+        <!--מפה והלאה - כפתורים לדוגמא-->
+        <!-- כפתור פייסבוק -->
+        <a href="#" class="btn facebook">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" class="icon"> התחברות עם Facebook
+        </a>
+        
+        <!-- כפתור גיטהאב -->
+        <a href="#" class="btn github">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="icon"> התחברות עם GitHub
+        </a>
+        
+        <!-- כפתור Apple -->
+        <a href="#" class="btn apple">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="icon"> התחברות עם Apple
+        </a>
+      </div>
+</body>
+</html>

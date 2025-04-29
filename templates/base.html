@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>{% block title %} דף הבית - אפליקציית ניהול קניות {% endblock title %}</title>
+     
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">  
+     <!--קישור לאייקונים-->  
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+     {% block head %}
+     {% endblock  %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/cart.png') }}" alt="לוגו" class="logo">
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('index') }}">דף הבית</a>
+            {% if 'user' in session %}
+            <!--אם יש משתמש מחובר-->
+                <a href="{{ url_for('profile') }}">אזור אישי</a>
+                <a href="{{ url_for('logout') }}">התנתקות</a>
+            {% else %}
+            <!--:אם אין-->
+                <a href="{{ url_for('login') }}">התחברות</a>
+            {% endif %}
+        </div>
+    </nav>
+    {% block body %}
+    <!--תוכן דף הבית-->
+    <main class="header-section">
+        <h1>ברוכים הבאים לאפליקציית ניהול הקניות שלי!</h1>
+        <p>כאן תוכלו לעקוב אחרי ההוצאות שלכם בקלות וביעילות.</p>
+        <a href="{{ url_for('demo') }}" class="demo-button">נסו את האפליקציה</a>
+        <img src="{{ url_for('static', filename='shopping_image.jpg') }}" alt="תמונה של קניות" class="main-image">
+    </main>
+    {% endblock body %}
+    
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="{{ url_for('index') }}">דף הבית</a> |
+            {% if 'user' in session %}
+                <a href="{{ url_for('profile') }}">אזור אישי</a> |
+                <a href="{{ url_for('logout') }}">התנתקות</a> 
+            {% else %}
+                <a href="{{ url_for('login') }}">התחברות</a> 
+            {% endif %}
+            |
+            <!--פותח טיוטת מייל לשליחה-->
+            <a href="mailto:ROren7878@gmail.com?subject=SmartCart - {% if 'user' in session %}{{ user.name }}{% else %}משתמש אנונימי{% endif %}">
+                צור קשר
+            </a>
+               
+         </div>
+        <p>כל הזכויות שמורות © {{ current_year }}</p>
+    </footer>
+
+</body>
+
+
+{% block script %}
+{% endblock script %}
+</html>

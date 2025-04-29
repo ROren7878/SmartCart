@@ -1,0 +1,148 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Varela Round', 'Open Sans', sans-serif;
+    direction: rtl;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+header {
+    background-color: #607D8B; 
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* NAV */
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #546e7a;
+    padding: 10px 20px;
+}
+/* צד הלוגו */
+nav .nav-left{
+    width: 6%;
+    border-radius: 70px;
+    /* background-color: #f5f5f5; */
+}
+nav .nav-left .logo{
+    width: 100%;
+}
+/* צד הכפתורים */
+nav .nav-right{
+    display: flex;
+    gap: 1rem;
+}
+
+nav a{
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+nav a:hover {
+    background-color: #cfd8dc;
+    color: #37474f;
+}
+
+/* אזור התוכן */
+.header-section {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(to bottom, #ffffff, #e0eaf0);
+    min-height: calc(100vh - 150px); /* משאיר מקום לפוטר */
+}
+
+.header-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #455a64;
+}
+
+.header-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #666;
+}
+/* 'כפתור 'התנסות באפליקציה */
+.demo-button {
+    background-color: #607d8b;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.demo-button:hover {
+    background-color: #455a64;
+}
+
+/* תמונה ראשית */
+.main-image {
+    margin-top: 2rem;
+    max-width: 300px;
+    height: auto;
+}
+
+/* פוטר */
+footer {
+    background-color: #546e7a;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+footer .footer-links {
+    margin-top: 0.5rem;
+}
+
+footer .footer-links a {
+    color: #cfd8dc;
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+footer .footer-links a:hover {
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+/* כפתור שנמצא בדפי הגרפים ובייעול קניות */
+/* ולכן מיקמתי פה */
+/* 'כפתור 'חזרה לםרופיל */
+.back-button-container {
+    text-align: center; /* מרכז את הכפתור */
+    margin-top: 30px; /* רווח מעל הכפתור */
+    margin-bottom: 50px; /* רווח גדול יותר לפני הפוטר */
+}
+
+.back {
+    background-color: #546E7A;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back:hover {
+    background-color: #455a64;
+    transform: translateX(-3px);
+}

@@ -1,0 +1,256 @@
+/* דף האזור האישי של המשתמש */
+/* כללי */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:'Alef', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    direction: rtl;
+    line-height: 1.6;
+}
+
+/* שורת הכפתורים */
+.header-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.header-buttons a {
+    padding: 10px 16px;
+    background-color: #607d8b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.header-buttons a:hover {
+    background-color: #546e7a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/*כללי של הדף DIV */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* עיצוב שורת סינון לפי קטגוריה */
+.filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px auto;
+    margin-top: 0px;
+    width: 500px; /* יכול לשנות את הרוחב לפי הצורך */
+}
+
+#category-filter {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px; /* הגדרת רוחב לתיבת הסינון */
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+#category-filter:focus {
+    border-color: #607d8b;
+    outline: none;
+}
+/* עיצוב של תווית הסינון */
+label[for="category-filter"] {
+    font-size: 16px;
+    font-weight: 600;
+    color: #607d8b;
+}
+/* כפתור סינון */
+.filter-container .filter-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #607d8b;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-container .filter-btn:hover {
+    background-color: #546e7a;
+}
+
+/* עיצוב טבלת הרכישות */
+.table-container {
+    margin: 20px auto;
+    max-width: 1000px;
+    overflow-x: auto;
+    background: transparent;
+    border-radius: 0;
+    padding: 0 20px;
+}
+
+.table-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #607D8B;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.purchases-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.purchases-table thead {
+    background-color: #607d8b;
+    color: #ffffff;
+}
+
+.purchases-table th, .purchases-table td {
+    padding: 10px 14px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    font-size: 16px;
+}
+
+.purchases-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.purchases-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* במסכים קטנים */
+@media (max-width: 600px) {
+    .purchases-table th, .purchases-table td {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+/* כפתורי הוספת רכישה וטעינת רכישות נוספות- מתחת הטבלה */
+.buttons-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px auto;
+    flex-wrap: wrap;
+}
+
+.purchase-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background-color: #607d8b;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.purchase-btn:hover {
+    background-color: #546e7a;
+}
+
+.purchase-btn i {
+    font-size: 18px;
+}
+
+
+/* טופס ההוספה */
+#purchase-form {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.01);
+    max-width: 400px;
+}
+
+#purchase-form h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #607d8b;
+}
+
+#purchase-form label {
+    display: block;
+    margin: 7px;
+    font-weight: bold;
+}
+
+#purchase-form input,
+#purchase-form select {
+    width: 100%;
+    padding: 7px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+#purchase-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #607d8b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#purchase-form button:hover {
+    background-color: #546e7a;
+}
+
+/*פופאפ אין רכישות/ הצלחה */
+.success-popup {
+    position: fixed;
+    bottom: 30px; /* 20px מעל תחתית המסך */
+    left: 50%;
+    width: 30%;
+    transform: translateX(-50%);
+    background-color: #000; /* רקע שחור */
+    color: #fff; /* טקסט לבן */
+    padding: 14px 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+    z-index: 9999;
+    text-align: center;
+}
+
+.success-popup .close-btn {
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    float: left;
+}
+

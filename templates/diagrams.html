@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/diagrams.css')}}">
+{% endblock head %}
+
+
+{% block body %}
+
+<div class="diagram-page">
+
+    <h1>{{ title }}</h1>
+<h2>שנת {{ current_year }}</h2>
+
+    <!--שהוא מקבל URLמציג את הגרף לפי ה-->
+    <div class="diagram-img">
+        <img src="data:image/png;base64,{{ plot_url }}" alt="{{ title }}">
+    </div>
+</div>
+<!--'כפתור 'חזרה לפרופיל-->
+<div class="back-button-container">
+<button class="back" onclick="location.href='{{ url_for('profile') }}'">
+    <i class="fas fa-arrow-right"></i> חזרה לפרופיל
+</button>
+</div>
+{% endblock body %}

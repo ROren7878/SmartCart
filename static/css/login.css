@@ -1,0 +1,98 @@
+/* דף ההתחברות לאפליקציה - לא יורש מדף הבסיס */
+/* כי אין לו NAV וFOOTER כמו בבסיס */
+/* כללי */
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* תוודא שהדף תמיד מתמלא בגובה */
+  }
+  
+  /* טופס התחברות */
+  /*GOOGLE  ללא  */
+  .login-container {
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .login-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .login-form button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .login-form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* קו מפריד */
+  hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 80%; /* אורך הקו */
+  }
+  
+  /* כפתורי התחברות עם אייקונים */
+  .social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+    background-color: white;
+    transition: background-color 0.2s ease;
+    font-family: sans-serif;
+  }
+  
+  .btn:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    object-fit: contain;
+  }
+  
+  /* עיצוב כפתורים שונים */
+  .google { border-color: #ccc; }
+  .facebook { border-color: #3b5998; color: #3b5998; }
+  .github { border-color: #24292e; color: #24292e; }
+  .apple { border-color: #000; color: #000; }
+  

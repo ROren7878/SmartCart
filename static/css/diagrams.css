@@ -1,0 +1,27 @@
+/* דף הגרפים */
+.diagram-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.diagram-page h1 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.diagram-page h2 {
+    font-size: 24px;
+    color: #34495e;
+    margin-bottom: 30px;
+}
+/* תמונת הגרף */
+.diagram-img img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+

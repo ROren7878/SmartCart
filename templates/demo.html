@@ -1,0 +1,30 @@
+{% extends "base_profile.html" %}
+
+{% block title %} התנסות באפליקציית ניהול קניות {% endblock title %}
+
+
+
+{% block content %}
+<div class="table-container">
+    <!--שנשלח לדף DataFrame יצירת טבלה מ-->
+    <table class="purchases-table">
+        <thead>
+            <tr>
+                {% for col in data.columns %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for idx, row in data.iterrows() %}
+            <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

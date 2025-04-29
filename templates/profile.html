@@ -1,0 +1,190 @@
+{% extends "base_profile.html" %}
+
+{% block title %} האזור האישי שלך באפליקציית ניהול קניות {% endblock title %} 
+
+{% block content %}
+    <div class="container">
+        <!--סינון הרכישות לפי קטגוריה-->
+        <div class="filter-container">
+            <label for="category-filter">סנן לפי קטגוריה:</label>
+            <select id="category-filter" onchange="filterByCategory()">
+                <option value="all">הכל</option>
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+    <div class="table-container">
+        <div class="table-header">
+            הרכישות שלי - {{ user.name }}
+        </div>
+<!--טבלת הרכישות-->
+        <table class="purchases-table">
+            <thead>
+                <tr>
+                    <th>שם</th>
+                    <th>מחיר</th>
+                    <th>כמות</th>
+                    <th>קטגוריה</th>
+                    <th>תאריך</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in buys  %}
+                <tr>
+                    <td>{{b.name}}</td>
+                    <td>{{b.price}} ₪</td>
+                    <td>{{b.qty}}</td>
+                    <td>{{b.category}}</td>
+                    <td>{{b.formatted_date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="buttons-row">
+            <!--כפתור טעינת רכישות נוספות-->
+        <button id="load-more-btn" class="purchase-btn" onclick="loadMoreBuys()">
+            <i class="fas fa-sync-alt"></i> טען עוד רכישות
+        </button>
+            <!--כפתור הוספת רכישה -->
+        <button class="purchase-btn" onclick="toggleForm()">
+            <i class="fas fa-plus-circle"></i> הוסף רכישה
+        </button>
+    </div>
+
+    <!--טופס הוספת רכישה מוסתר-->
+    <form id="purchase-form" action="/after_buy" method="POST" style="display: none;">
+        <h2>הוספת רכישה חדשה</h2>
+    
+        <label for="name">שם המוצר:</label>
+        <input type="text" id="name" name="name" required>
+    
+        <label for="price">מחיר:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+    
+        <label for="qty">כמות:</label>
+        <input type="number" id="qty" name="qty" min="1" required>
+    
+        <label for="category">קטגוריה:</label>
+        <select id="category" name="category" required>
+            <option value="">בחר קטגוריה</option>
+            {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="date">תאריך:</label>
+        <input type="date" id="date" name="date" required value="{{today}}">
+    
+        <button type="submit" >הוסף רכישה</button>
+    </form>
+    <!--שיסייע בגלילת הדף לטופס div-->
+    <div id="scroll-anchor" style="height: 100px;"></div>
+
+    <!--פופאפ הצלחה בהוספת רכישה/אין רכישות נוספות-->
+    <div id="popup-message" class="success-popup" style="display: none;">
+        <span id="popup-message-text"></span>
+        <span class="close-btn" onclick="closePopup()">×</span>
+    </div>
+    
+</div>
+
+{% endblock content %}
+
+{% block in_skript %}
+
+<!--(פונקציה לחישוב מספר הרכישות המוצגות(כדי שיוצגו בתחילה 6 החדשות-->
+let displayedBuysCount = 6;
+
+function loadMoreBuys() {
+    fetch(`/profile/load_more?displayed_buys_count=${displayedBuysCount}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'no_more') {
+                // אם אין יותר רכישות
+                showNoMoreBuysMessage();
+                document.getElementById('load-more-btn').style.display = 'none';
+            } else if (data.status === 'success') {
+                // אם יש רכישות נוספות
+                data.buys.forEach(buy => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${buy.name}</td>
+                        <td>${buy.price} ₪</td>
+                        <td>${buy.qty}</td>
+                        <td>${buy.category}</td>
+                        <td>${buy.formatted_date}</td>
+                    `;
+                    document.querySelector('.purchases-table tbody').appendChild(tr);
+                });
+                displayedBuysCount += 6;
+            }
+        })
+        .catch(error => console.error('שגיאה בטעינה:', error));
+}
+
+<!--פונקציית הסינון לפי קטגוריה-->
+function filterByCategory() {
+    const selectedCategory = document.getElementById("category-filter").value;
+    const rows = document.querySelectorAll(".purchases-table tbody tr");
+
+    rows.forEach(row => {
+        const rowCategory = row.children[3].textContent.trim();
+        const shouldShow = selectedCategory === "all" || rowCategory === selectedCategory;
+        row.style.display = shouldShow ? "" : "none";
+    });
+};
+
+// פונקציה להציג הודעה בפופאפ
+function showPopup(message) {
+    // אם יש הודעה, מציב אותה בפופאפ
+    if (message) {
+        document.getElementById('popup-message-text').textContent = message;
+        document.getElementById('popup-message').style.display = 'block';
+        // הסתרה אוטומטית אחרי 10 שניות
+        setTimeout(() => {
+            closePopup();
+        }, 10000); // סגור אחרי 10 שניות
+    }
+}
+// פונקציה לסגור את הפופאפ
+function closePopup() {
+    document.getElementById('popup-message').style.display = 'none';
+}
+// קריאה להודעה על הוספת רכישה
+function showSuccessMessage() {
+    showPopup("הרכישה נוספה בהצלחה!");
+}
+// קריאה להודעה על כך שאין יותר רכישות
+function showNoMoreBuysMessage() {
+    showPopup("אין יותר רכישות להציג");
+}
+
+// מונע שליחה רגילה של הטופס ומטפל בה באופן ידני
+document.getElementById('purchase-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // ביטול שליחה רגילה
+
+    const formData = new FormData(this);
+
+    fetch('/after_buy', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            showSuccessMessage();
+            this.reset(); // איפוס הטופס
+            this.style.display = "none"; // הסתרת הטופס אחרי שליחה
+        } else {
+            showPopup("שגיאה: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('שגיאה בשליחת הטופס:', error);
+        showPopup("אירעה שגיאה בשליחת הרכישה");
+    });
+});
+{% endblock in_skript %}
