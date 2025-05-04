@@ -14,9 +14,6 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-left">
-            <img src="{{ url_for('static', filename='images/cart.png') }}" alt="לוגו" class="logo">
-        </div>
         <div class="nav-right">
             <a href="{{ url_for('index') }}">דף הבית</a>
             {% if 'user' in session %}
@@ -28,14 +25,18 @@
                 <a href="{{ url_for('login') }}">התחברות</a>
             {% endif %}
         </div>
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/smartCartLogo.png') }}" alt="לוגו" class="logo">
+        </div>
+
     </nav>
     {% block body %}
     <!--תוכן דף הבית-->
     <main class="header-section">
-        <h1>ברוכים הבאים לאפליקציית ניהול הקניות שלי!</h1>
-        <p>כאן תוכלו לעקוב אחרי ההוצאות שלכם בקלות וביעילות.</p>
-        <a href="{{ url_for('demo') }}" class="demo-button">נסו את האפליקציה</a>
-        <img src="{{ url_for('static', filename='shopping_image.jpg') }}" alt="תמונה של קניות" class="main-image">
+        <img src="{{ url_for('static', filename='images/home.png') }}" alt="תמונה של קניות" class="main-image">
+        <a href="{{ url_for('demo') }}" class="demo-button">
+            <i class="fas fa-shopping-cart"></i> נסו את האפליקציה
+        </a>
     </main>
     {% endblock body %}
     

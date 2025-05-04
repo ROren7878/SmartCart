@@ -178,6 +178,27 @@ document.getElementById('purchase-form').addEventListener('submit', function(eve
             showSuccessMessage();
             this.reset(); // איפוס הטופס
             this.style.display = "none"; // הסתרת הטופס אחרי שליחה
+            // מחיקה של כל השורות בטבלה הקיימת
+            const tbody = document.querySelector('.purchases-table tbody');
+            tbody.innerHTML = "";
+        
+            // הוספה מחדש של הרכישות מהשרת
+            data.latest_buys.forEach(buy => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${buy.name}</td>
+                    <td>${buy.price} ₪</td>
+                    <td>${buy.qty}</td>
+                    <td>${buy.category}</td>
+                    <td>${buy.formatted_date}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        
+            displayedBuysCount = 6;
+            if (data.latest_buys.length === 6) {
+                document.getElementById('load-more-btn').style.display = 'inline-block';
+            }
         } else {
             showPopup("שגיאה: " + data.message);
         }

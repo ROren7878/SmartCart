@@ -18,7 +18,6 @@ import google_auth
 from googleapiclient.discovery import build
 import google.oauth2.credentials
 
-
 from werkzeug.exceptions import BadRequest
 #import פנימיים
 from config import app, db
@@ -43,16 +42,15 @@ def inject_now():
 def inject_user():
     return dict(user=session.get('user'))
 
-
 #ניתוב ראשי - דף הבית
 @app.route('/')
 def index():
-    if 'user' in session:
-        session.pop('credentials', None)
-        session.pop('user', None)
-        user = session['user']
-        return render_template('base.html')
+    # if 'user' in session:
+    session.pop('credentials', None)
+        # session.pop('user', None)
+        # user = session['user']
     return render_template('base.html')
+    # return render_template('base.html')
 #ניתוב לדף לוגין
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -96,6 +94,46 @@ def profile():
         return render_template('profile.html', buys=recent_buys, success_message=success_message, today = date.today(), user=user, categories = Buy.categories, current_page='profile')
 
     return redirect(url_for('login'))
+
+#ניתוב של הוספת רכישה בטופס
+def get_latest_buys(user_id, limit=6):
+    user = User.query.get(user_id)
+    sorted_buys = sorted(user.buys, key=lambda buy: buy.date, reverse=True)
+    return sorted_buys[:limit]
+
+@app.route('/after_buy', methods=['GET', 'POST'])
+def after_buy():
+    if request.method == 'POST':
+        if 'user' in session:  # בודק אם המשתמש מחובר
+            # שולף את מזהה המשתמש מה-session
+            user_id = session['user']['id']
+            # שולף את תאריך הרכישה וממיר אותו לאובייקט date
+            date_str = request.form['date']
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+            # קריאה לפונקציה להוספת רכישה
+            add_buy(
+                user_id,
+                request.form['name'],
+                int(request.form['qty']),  # המרת כמות למספר שלם
+                float(request.form['price']),  # המרת מחיר למספר עם נקודה עשרונית
+                request.form['category'],
+                date_obj
+            )
+            session['success_message'] = True  # ← שמירה זמנית ב-session
+                
+            latest_buys = get_latest_buys(user_id)
+
+            return jsonify({
+                'status': 'success',
+                'message': 'הרכישה נוספה בהצלחה!',
+                'latest_buys': [buy.to_dict() for buy in latest_buys]
+            })        
+        else:
+            # אם אין משתמש מחובר, מפנה לדף ההתחברות
+            return jsonify({'status': 'error', 'message': 'עליך להתחבר קודם'})
+    # אם יש GET, פשוט מפנים לדף פרופיל
+    return redirect(url_for('login'))
+
 #ניתוב לטעינת רכישות נוספות
 @app.route('/profile/load_more')
 def load_more_buys():
@@ -117,33 +155,6 @@ def load_more_buys():
 
     return jsonify({'status': 'unauthorized'})
 
-#ניתוב של הוספת רכישה בטופס
-@app.route('/after_buy', methods=['GET', 'POST'])
-def after_buy():
-    if request.method == 'POST':
-        if 'user' in session:  # בודק אם המשתמש מחובר
-            # שולף את מזהה המשתמש מה-session
-            user_id = session['user']['id']
-            # שולף את תאריך הרכישה וממיר אותו לאובייקט date
-            date_str = request.form['date']
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-            # קריאה לפונקציה להוספת רכישה
-            add_buy(
-                user_id,
-                request.form['name'],
-                int(request.form['qty']),  # המרת כמות למספר שלם
-                float(request.form['price']),  # המרת מחיר למספר עם נקודה עשרונית
-                request.form['category'],
-                date_obj
-            )
-            session['success_message'] = True  # ← שמירה זמנית ב-session
-            
-            return jsonify({'status': 'success', 'message': 'הרכישה נוספה בהצלחה!'})
-        else:
-            # אם אין משתמש מחובר, מפנה לדף ההתחברות
-            return jsonify({'status': 'error', 'message': 'עליך להתחבר קודם'})
-    # אם יש GET, פשוט מפנים לדף פרופיל
-    return redirect(url_for('login'))
 #CSV ניתוב הורדת קובץ 
 @app.route("/export_csv")
 def export_csv():

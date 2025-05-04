@@ -20,21 +20,22 @@ nav{
     justify-content: space-between;
     align-items: center;
     background-color: #546e7a;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
 }
 /* צד הלוגו */
-nav .nav-left{
-    width: 6%;
+ .nav-left{
+    width: 10%;
     border-radius: 70px;
     /* background-color: #f5f5f5; */
 }
-nav .nav-left .logo{
+ .nav-left .logo{
     width: 100%;
 }
 /* צד הכפתורים */
 nav .nav-right{
     display: flex;
     gap: 1rem;
+    margin-right: 5%;
 }
 
 nav a{
@@ -53,23 +54,26 @@ nav a:hover {
 
 /* אזור התוכן */
 .header-section {
+    background-color: #e8e8e8;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
     text-align: center;
-    padding: 3rem 1rem;
-    background: linear-gradient(to bottom, #ffffff, #e0eaf0);
-    min-height: calc(100vh - 150px); /* משאיר מקום לפוטר */
 }
 
-.header-section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #455a64;
+/* תמונה ראשית */
+.main-image {
+    max-height: 75vh;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 0;
 }
 
-.header-section p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    color: #666;
-}
 /* 'כפתור 'התנסות באפליקציה */
 .demo-button {
     background-color: #607d8b;
@@ -81,17 +85,17 @@ nav a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
+    margin-bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.demo-button i {
+    font-size: 1.2rem;
 }
 
 .demo-button:hover {
     background-color: #455a64;
-}
-
-/* תמונה ראשית */
-.main-image {
-    margin-top: 2rem;
-    max-width: 300px;
-    height: auto;
 }
 
 /* פוטר */
@@ -120,7 +124,7 @@ footer .footer-links a:hover {
 
 /* כפתור שנמצא בדפי הגרפים ובייעול קניות */
 /* ולכן מיקמתי פה */
-/* 'כפתור 'חזרה לםרופיל */
+/* 'כפתור 'חזרה לפרופיל */
 .back-button-container {
     text-align: center; /* מרכז את הכפתור */
     margin-top: 30px; /* רווח מעל הכפתור */
