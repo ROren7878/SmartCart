@@ -1,5 +1,5 @@
 
-from config import db
+from extensions import db
 from models import User
 from flask import current_app as app
 

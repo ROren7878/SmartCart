@@ -29,13 +29,13 @@
     <a href="{{ url_for('export_csv') }}" class="btn btn-primary">
         <i class="fas fa-download"></i> הורד קובץ CSV
     </a>
-    <a href="{{ url_for('create_categories_plt') }}" class="diagram-btn">
+    <a href="{{ url_for('categories_plt') }}" class="diagram-btn">
         <i class="fas fa-chart-pie"></i> התפלגות לפי קטגוריות
     </a>
-    <a href="{{ url_for('create_month_diagram') }}" class="diagram-btn">
+    <a href="{{ url_for('month_diagram') }}" class="diagram-btn">
         <i class="fas fa-calendar-alt"></i> התפלגות לפי חודשים
     </a>
-    <a href="{{ url_for('improve') }}" class="diagram-btn">
+    <a href="{{ url_for('improve_buys') }}" class="diagram-btn">
         <i class="fas fa-arrow-trend-up"></i>  ייעול קניות
     </a>
 </div>
@@ -70,7 +70,7 @@
                 form.scrollIntoView({ behavior: "smooth", block: "end" });
             }, 100);
         }
-    }
+    };
 
     {% block in_skript %}{% endblock in_skript %}
 </script>
